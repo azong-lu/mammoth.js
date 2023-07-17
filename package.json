@@ -1,5 +1,5 @@
 {
-  "name": "mammoth",
+  "name": "l-mammoth",
   "version": "1.6.0",
   "author": "Michael Williamson <mike@zwobble.org>",
   "description": "Convert Word documents from docx to simple HTML and Markdown",
@@ -35,10 +35,12 @@
     "duck": "^0.1.12",
     "eslint": "2.13.1",
     "hamjest": "^4.0.1",
+    "http-server": "^14.1.1",
     "mocha": "~2.2.5",
     "temp": "^0.9.4",
     "typescript": "^5.0.4",
-    "uglify-js": "~2.4.8"
+    "uglify-js": "~2.4.8",
+    "watchify": "^4.0.0"
   },
   "browser": {
     "./lib/unzip.js": "./browser/unzip.js",
@@ -51,7 +53,9 @@
     "pretest": "eslint lib test",
     "test": "mocha 'test/**/*.tests.js'",
     "check-typescript": "tsc --noEmit lib/index.d.ts",
-    "prepare": "make mammoth.browser.min.js"
+    "build:browser": "browserify lib/index.js --standalone mammoth > mammoth.browser.js",
+    "build": "npm run build:browser && uglifyjs mammoth.browser.js > mammoth.browser.min.js",
+    "dev": "node bin/dev"
   },
   "license": "BSD-2-Clause",
   "engines": {
@@ -60,5 +64,6 @@
   "volta": {
     "node": "16.18.1",
     "npm": "8.19.2"
-  }
+  },
+  "__npminstall_done": false
 }
